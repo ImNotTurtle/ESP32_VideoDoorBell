@@ -1,0 +1,5 @@
+#ifndef SPEAKER_MODULE_HPP
+#define SPEAKER_MODULE_HPP
+
+
+#endif
