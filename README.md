@@ -64,3 +64,4 @@ Future improvements may include:
 
 # Documentation
 You can find all necessary resources in the Documentations folder, which should contain everything you need to rebuild or understand this project.
+One notice is that some document files have .drawio extension, you should go to draw.io website and open the file on it
