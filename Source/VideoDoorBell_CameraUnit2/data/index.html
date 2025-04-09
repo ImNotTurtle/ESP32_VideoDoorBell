@@ -1,0 +1,86 @@
+static const char index_html[] PROGMEM = R"rawliteral(
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ESP32-CAM WebSocket Image Stream</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+      }
+      #image {
+        width: 640px;
+        height: 480px;
+        border: 1px solid #000;
+      }
+    </style>
+  </head>
+  <body>
+    <img id="image" src="" alt="Image from ESP32-CAM" />
+  </body>
+
+  <script>
+    var url = "ws://192.168.1.50:1337/";
+    var image;
+
+    function init() {
+      image = document.getElementById("image");
+
+      wsConnect(url);
+    }
+
+    function wsConnect(url) {
+      // Connect to WebSocket server
+      websocket = new WebSocket(url);
+
+      // Assign callbacks
+      websocket.onopen = function (evt) {
+        onOpen(evt);
+      };
+      websocket.onclose = function (evt) {
+        onClose(evt);
+      };
+      websocket.onmessage = function (evt) {
+        onMessage(evt);
+      };
+      websocket.onerror = function (evt) {
+        onError(evt);
+      };
+    }
+
+    // Called when a WebSocket connection is established with the server
+    function onOpen(evt) {
+      // Log connection state
+      console.log("Connected");
+    }
+
+    // Called when the WebSocket connection is closed
+    function onClose(evt) {
+      // Log disconnection state
+      console.log("Disconnected");
+    }
+
+    // Called when a message is received from the server
+    function onMessage(evt) {
+      // Print out our received message
+      console.log("Received: " + evt.data);
+    }
+
+    // Called when a WebSocket error occurs
+    function onError(evt) {
+      console.log("ERROR: " + evt.data);
+    }
+
+    // Called whenever the HTML button is pressed
+
+    // Call the init function as soon as the page loads
+    window.addEventListener("load", init, false);
+  </script>
+</html>
+)rawliteral";
